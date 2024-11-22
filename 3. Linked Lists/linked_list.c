@@ -15,8 +15,28 @@ struct Node* createNode(int data) {
     return newNode;
 }
 
+// Function to display the linked list
+void displayList(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+// ===================================================================================================================
+
+// Function to insert a node at the beginning
+void insertAtBeginning(struct Node** head, int data) {
+    struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
+    new_node->data = data;
+    new_node->next = (*head);
+    (*head) = new_node;
+}
+
 // Function to insert a node at the end of the linked list
-void insertEnd(struct Node** head, int data) {
+void insertAtEnd(struct Node** head, int data) {
     struct Node* newNode = createNode(data);
     if (*head == NULL) {
         *head = newNode;
@@ -29,53 +49,14 @@ void insertEnd(struct Node** head, int data) {
     temp->next = newNode;
 }
 
-// Function to display the linked list
-void displayList(struct Node* head) {
-    struct Node* temp = head;
-    while (temp != NULL) {
-        printf("%d -> ", temp->data);
-        temp = temp->next;
-    }
-    printf("NULL\n");
-}
-
-// -----------------------------------------------------------------------
-
-// Function to insert a node at the beginning
-void insertAtBeginning(struct Node** head_ref, int new_data) {
-    struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
-    new_node->data = new_data;
-    new_node->next = (*head_ref);
-    (*head_ref) = new_node;
-}
-
-// Function to insert a node at the end
-void insertAtEnd(struct Node** head_ref, int new_data) {
-    struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
-    struct Node* last = *head_ref;
-    new_node->data = new_data;
-    new_node->next = NULL;
-
-    if (*head_ref == NULL) {
-        *head_ref = new_node;
-        return;
-    }
-
-    while (last->next != NULL) {
-        last = last->next;
-    }
-    
-    last->next = new_node;
-}
-
 // Function to delete a node from the beginning
-void deleteFromBeginning(struct Node** head_ref) {
-    if (*head_ref == NULL) {
+void deleteFromBeginning(struct Node** head) {
+    if (*head == NULL) {
         printf("List is empty.\n");
         return;
     }
-    struct Node* temp = *head_ref;
-    *head_ref = (*head_ref)->next;
+    struct Node* temp = *head;
+    *head = (*head)->next;
     free(temp);
 }
 
@@ -89,7 +70,7 @@ void main() {
     for (int i = 0; i < n; i++) {
         printf("Enter element %d: ", i + 1);
         scanf("%d", &data);
-        insertEnd(&head, data);
+        insertAtEnd(&head, data);
     }
 
     printf("The linked list is: \n");
