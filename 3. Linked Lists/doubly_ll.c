@@ -65,6 +65,28 @@ void printList(struct Node* head) {
     printf("NULL\n");
 }
 
+void deleteAtEnd(struct Node** head) {
+    if (*head == NULL) {
+        printf("List is empty.\n");
+        return;
+    }
+
+    struct Node* temp = *head;
+
+    if (temp->next == NULL) {
+        free(temp);
+        *head = NULL;
+        return;
+    }
+
+    while (temp->next->next != NULL) {
+        temp = temp->next;
+    }
+
+    free(temp->next);
+    temp->next = NULL;
+}
+
 void deleteAtPosition(struct Node** head, int pos) {
     if (*head == NULL) {
         printf("List is empty.\n");
@@ -109,7 +131,8 @@ void main() {
     insertAtEnd(&head, 27);
     insertAtEnd(&head, 44);
     printList(head);
-    deleteAtPosition(&head, 3); // 23, 63, 44
+    deleteAtEnd(&head); // 23, 63, 44
+    printList(head);
     // Inserting nodes
     // int arr[] = {23,56,34,77};
     // printList(arrayToDLL(arr, 4));
