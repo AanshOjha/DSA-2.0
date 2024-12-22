@@ -57,7 +57,6 @@ void insertAtPosition(struct Node** head, int data, int pos) {
     }
     temp->next = newNode;
     newNode->next = temp->next;
-    
 }
 
 
@@ -97,9 +96,37 @@ void deleteAtEnd(struct Node** head) {
     current->next = NULL;
 }
 
+void deleteAtPos(struct Node** head, int pos) {
+    if (*head == NULL) {
+        printf("List is empty.\n");
+        return;
+    }
+
+    struct Node* temp = *head;
+
+    if (pos == 1) {
+        *head = temp->next;
+        free(temp);
+        return;
+    }
+
+    for (int i = 1; temp != NULL && i < pos - 1; i++) {
+        temp = temp->next;
+    }
+
+    if (temp == NULL || temp->next == NULL) {
+        printf("Position does not exist.\n");
+        return;
+    }
+
+    struct Node* next = temp->next->next;
+    free(temp->next);
+    temp->next = next;
+}
+
 void main() {
     struct Node* head = NULL;
-    int n, data, choice;
+    int n, data, choice, pos;
 
     printf("Enter the number of elements: ");
     scanf("%d", &n);
@@ -137,6 +164,11 @@ void main() {
                 insertAtEnd(&head, data);
                 break;
 
+            case 8:
+                printf("\nEnter position: ");
+                scanf("%d", &pos);
+                deleteAtPos(&head, pos);
+                break;
             case 7:
                 deleteAtEnd(&head);
                 break;
