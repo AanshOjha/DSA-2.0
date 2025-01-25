@@ -19,9 +19,7 @@ void selectionSort(int arr[], int n) {
 
 void bubbleSort(int arr[], int n) {
     for (int i = 0; i <= n-1; i++){
-
         for (int j = 0; j <= n-i-2; j++) {
-
             // If current element greater than next element, SWAP
             if (arr[j] > arr[j+1]) {
                 int temp = arr[j];

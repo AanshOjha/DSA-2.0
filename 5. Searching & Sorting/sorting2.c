@@ -57,22 +57,28 @@ void mergesort(int low, int high) {
 }
 
 void quickSort(int arr[], int low, int hi) {
-    if (low < hi)  {   
+    // When array has 1 element, return
+    if (low >= hi) {
+        return;
+    }
+
+    // Else array has more than 1 element  
 
         int start = low;
         int end = hi;
         int mid = low + (hi-low) / 2;
         int pivot = arr[mid];
 
+        // Compare till start and end point to same element
         while (start <= end) {
-            while (arr[start] < pivot) {
+            while (arr[start] < pivot) {    // Means good going, move ahead
                 start++;
             }
-            while (arr[end] > pivot) {
+            while (arr[end] > pivot) {      // Means good going, go behind
                 end--;
             }
 
-            if (start <= end) {
+            if (start <= end) {     // Swap only start and end are in limit.
                 int temp = arr[start];
                 arr[start] = arr[end];
                 arr[end] = temp;
@@ -83,14 +89,14 @@ void quickSort(int arr[], int low, int hi) {
 
         quickSort(arr, low, end);
         quickSort(arr, start, hi);
-    }
+    
 }
 
 void main() {
-    // int arr[] = {5,4,3,2,1};
+    int arr[] = {5,4,3,2,1};
     // // mergeSort(arr, 8);
-    // int arr_len = 5;
-    // quickSort(arr, 0, arr_len-1);
+    int arr_len = 5;
+    quickSort(arr, 0, arr_len-1);
     // for (int i = 0; i <=arr_len-1; i++) printf("%d ", arr[i]);
     int n, i;
 
@@ -108,11 +114,11 @@ void main() {
     // }
     // printf("\n");
 
-    mergesort(0, 5 - 1);
+    // mergesort(0, 5 - 1);
 
     printf("Sorted list:\n");
     for (i = 0; i < 5; i++) {
-        printf("%d ", a[i]);
+        printf("%d ", arr[i]);
     }
     printf("\n");
 }
